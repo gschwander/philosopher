@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/08/22 14:40:03 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:39:48 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int ft_philosopher(t_param param)
 {
-    printf("nbr_of_philo: %lld\n", param.nbr_of_philo);
-    printf("time_to_die: %lld\n", param.time_to_die);
-    printf("time_to_eat: %lld\n", param.time_to_eat);
-    printf("time_to_sleep: %lld\n", param.time_to_sleep);
-    printf("nbr_of_times_each_philo_must_eat: %lld\n", param.nbr_of_times_each_philo_must_eat);
+    pthread_t *philosopher;
+    int i;
+
+    i = 0;
+    philosopher = ft_alloc_philo(param);
+    if (!philosopher)
+        return (1);
+    
     return (0);
 }
-
+// coder une fonction qui va checker les arguments
 int main(int argv, char **argc)
 {
     t_param param;
