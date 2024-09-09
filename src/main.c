@@ -6,24 +6,26 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/08/26 12:39:48 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:22:31 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int ft_philosopher(t_param param)
+int init_philo(t_param param, t_data *data)
 {
-    pthread_t *philosopher;
     int i;
 
     i = 0;
-    philosopher = ft_alloc_philo(param);
-    if (!philosopher)
-        return (1);
-    
-    return (0);
+    while (i < param.nbr_of_philo)
 }
+
+int ft_philosopher(t_param param)
+{
+    t_data  data;
+    init_philo(param, &data)
+}
+
 // coder une fonction qui va checker les arguments
 int main(int argv, char **argc)
 {
