@@ -6,24 +6,23 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/09/09 14:22:31 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:45:50 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int init_philo(t_param param, t_data *data)
-{
-    int i;
-
-    i = 0;
-    while (i < param.nbr_of_philo)
-}
-
 int ft_philosopher(t_param param)
 {
     t_data  data;
-    init_philo(param, &data)
+    pthread_mutex_t *forks;
+    
+    if(init_data(&data, param))
+        return (1);
+    forks = init_forks(param);
+    if (!forks)
+        return (1);
+    init_philo(&data, param, forks);
 }
 
 // coder une fonction qui va checker les arguments
