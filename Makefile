@@ -7,6 +7,7 @@ SRC		:=	main.c		\
 			get_current_time.c	\
 			ft_usleep.c \
 			routine_philo.c \
+			init_philo_utils.c \
 			monitor.c 
 SRC_DIR	:=	src
 BUILD	:=	.build
