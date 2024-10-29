@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 17:08:23 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:14:04 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_philo
 	int					id;
 	int					eating;
 	int					meals_eaten;
+	size_t				*start_time;
 	size_t				last_meal;
 	size_t				time_to_die;
 	size_t				time_to_eat;
@@ -49,6 +50,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int					dead_flag;
+	size_t				start_time;
 	t_param				param;
 	pthread_mutex_t		dead_lock;
 	pthread_mutex_t		meal_lock;
@@ -57,21 +59,25 @@ typedef struct s_data
 }						t_data;
 
 // memory_philosopher.c
-unsigned long long		ft_atoi_ll(char *str);
+size_t		ft_atoi(char *str);
 
 // init.c
 int						init_data(t_data *data, t_param param);
 pthread_mutex_t			*init_forks(t_param param);
 int						init_philo(t_data *data, t_param param,
 							pthread_mutex_t *forks);
+
+// get_current_time.c
 size_t					get_current_time(void);
-void					ft_usleep(size_t time);
+
+// ft_usleep.c
+int						ft_usleep(size_t time, t_philo *philo);
 
 // routine_philo.c
-int						routine_philo(t_philo *philo);
+void					*routine_philo(void *p);
 
 // monitor.c
-void					*monitor(void *data);
+void					*ft_monitor(void *d);
 
 // init_philo_utils.c
 void					init_time_philo(t_philo *philo, t_param param);

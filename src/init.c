@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:28:29 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 16:32:48 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:14:47 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
 {
-    int i;
+    size_t i;
 
     i = 0;
-    while (i < param.nbr_of_philo);
+    while (i < param.nbr_of_philo)
     {
         data->philo[i].id = i;
+        data->philo[i].start_time = &data->start_time;
         data->philo[i].eating = 0;
         data->philo[i].meals_eaten = 0;
         data->philo[i].last_meal = get_current_time();
-        if (data->philo[i].last_meal == -1)
+        if (data->philo[i].last_meal == 0)
             return (1);
         init_time_philo(&data->philo[i], param);
         data->philo[i].r_fork = &forks[i];
@@ -43,7 +44,7 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
 pthread_mutex_t *init_forks(t_param param)
 {
     pthread_mutex_t *forks;
-    int i;
+    size_t i;
 
     i = 0;
     forks = malloc(sizeof(pthread_mutex_t) * param.nbr_of_philo);
@@ -59,10 +60,8 @@ pthread_mutex_t *init_forks(t_param param)
 
 int init_data(t_data *data, t_param param)
 {
-    int i;
-
-    i = 0;
     data->dead_flag = 0;
+    data->start_time = get_current_time();
     pthread_mutex_init(&data->dead_lock, NULL);
     pthread_mutex_init(&data->meal_lock, NULL);
     pthread_mutex_init(&data->write_lock, NULL);

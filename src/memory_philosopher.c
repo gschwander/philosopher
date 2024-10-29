@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:38:35 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 17:07:06 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:40:24 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 void data_clean(t_data *data, pthread_mutex_t *forks)
 {
-    int i;
+    size_t i;
 
     i = 0;
     while (i < data->param.nbr_of_philo)

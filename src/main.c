@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 17:02:40 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:19:10 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int ft_philosopher(t_param param)
     t_data  data;
     pthread_t monitor;
     pthread_mutex_t *forks;
-    int i;
+    size_t i;
     
     i = 0;
     data.param = param;
@@ -32,9 +32,10 @@ int ft_philosopher(t_param param)
         pthread_create(&data.philo[i].thread, NULL, routine_philo, &data.philo[i]);
         i++;
     }
-    pthread_create(&monitor, NULL, monitor, &data);
+    pthread_create(&monitor, NULL, ft_monitor, &data);
     pthread_join(monitor, NULL);
     data_clean(&data, forks);
+    return (0);
 }
 
 static int check_args(char **argc)
@@ -65,12 +66,12 @@ int main(int argv, char **argc)
         return (perror("Wrong number of arguments"), 1);
     if (check_args(argc))
         return (1);
-    param.nbr_of_philo = ft_atoi_ll(argc[1]);
-    param.time_to_die = ft_atoi_ll(argc[2]);
-    param.time_to_eat = ft_atoi_ll(argc[3]);
-    param.time_to_sleep = ft_atoi_ll(argc[4]);
+    param.nbr_of_philo = ft_atoi(argc[1]);
+    param.time_to_die = ft_atoi(argc[2]) * 1000;
+    param.time_to_eat = ft_atoi(argc[3]) * 1000;
+    param.time_to_sleep = ft_atoi(argc[4]) * 1000;
     if (argv == 6)
-        param.nbr_of_times_each_philo_must_eat = ft_atoi_ll(argc[5]);
+        param.nbr_of_times_each_philo_must_eat = ft_atoi(argc[5]) * 1000;
     else
         param.nbr_of_times_each_philo_must_eat = -1;
     ft_philosopher(param);

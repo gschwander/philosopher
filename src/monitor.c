@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:40:28 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 16:54:20 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:17:39 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int time_since_meal(t_philo *philo)
     return (0);
 }
 
-void monitor(t_data *data)
+void *ft_monitor(void *d)
 {
-    int i;
+    t_data *data;
+    data = (t_data *)d;
+    size_t i;
 
     while (1)
     {
@@ -33,10 +35,10 @@ void monitor(t_data *data)
                 pthread_mutex_lock(data->philo[i].dead_lock);
                 data->dead_flag = 1;
                 pthread_mutex_lock(&data->write_lock);
-                printf("%zu %d died\n", get_current_time(), data->philo[i].id);
+                printf("%zu ms %d died\n", get_current_time()- data->start_time, data->philo[i].id);
                 pthread_mutex_unlock(&data->write_lock);
                 pthread_mutex_unlock(data->philo[i].dead_lock);
-                return ;
+                return (NULL);
             }
             i++;
         }

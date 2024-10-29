@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 13:31:35 by gschwand          #+#    #+#             */
-/*   Updated: 2024/08/22 14:31:44 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:39:07 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ int ft_is_digit(char c)
     return (0);
 }
 
-unsigned long long ft_atoi_ll(char *str)
+size_t ft_atoi(char *str)
 {
     int i;
-    unsigned long long res;
+    size_t res;
 
-    if (!str || str[0] == '-')
-        return (0);
     i = 0;
     res = 0;
     while (str[i] && ft_is_digit(str[i]) == 1)
