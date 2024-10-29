@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:28:29 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 08:33:59 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:32:48 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
         data->philo[i].eating = 0;
         data->philo[i].meals_eaten = 0;
         data->philo[i].last_meal = get_current_time();
-        data->philo[i].time_to_die = param.time_to_die;
-        data->philo[i].time_to_eat = param.time_to_eat;
-        data->philo[i].time_to_sleep = param.time_to_sleep;
+        if (data->philo[i].last_meal == -1)
+            return (1);
+        init_time_philo(&data->philo[i], param);
         data->philo[i].r_fork = &forks[i];
         if (i < param.nbr_of_philo - 1)
             data->philo[i].l_fork = &forks[i + 1];
@@ -37,6 +37,7 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
         data->philo[i].dead = &data->dead_flag;
         i++;
     }
+    return (0);
 }
 
 pthread_mutex_t *init_forks(t_param param)

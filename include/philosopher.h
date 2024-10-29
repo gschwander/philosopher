@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 11:43:58 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:33:08 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ int						routine_philo(t_philo *philo);
 
 // monitor.c
 void					*monitor(void *data);
+
+// init_philo_utils.c
+void					init_time_philo(t_philo *philo, t_param param);
 
 #endif
