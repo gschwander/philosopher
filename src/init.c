@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:28:29 by gschwand          #+#    #+#             */
-/*   Updated: 2024/09/09 14:53:12 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:11:28 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
     {
         data->philo[i].id = i;
         data->philo[i].eating = 0;
-        data->philo[i].meals_eaten = gettimeofday;
+        data->philo[i].meals_eaten = get_current_time();
         data->philo[i].last_meal = 0;
         data->philo[i].time_to_die = param.time_to_die;
         data->philo[i].time_to_eat = param.time_to_eat;

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_philosopher.c                               :+:      :+:    :+:   */
+/*   get_current_time.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 12:38:35 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 07:34:33 by gschwand         ###   ########.fr       */
+/*   Created: 2024/10/29 08:10:52 by gschwand          #+#    #+#             */
+/*   Updated: 2024/10/29 08:10:59 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-pthread_t *ft_philosopher(t_param param)
+size_t	get_current_time(void)
 {
-    pthread_t *philosopher;
-    int i;
+	struct timeval	time;
 
-    i = 0;
-    ft_alloc_philo(param);
-    philosopher = malloc(sizeof(pthread_t) * param.nbr_of_philo);
-    if (!philosopher)
-        return (perror("Malloc failed"), 1);
-    while (i < param.nbr_of_philo)
-    {
-        pthread_create(&philosopher[i], NULL, philosopher, NULL);
-        i++;
-    }
-    return (philosopher);
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

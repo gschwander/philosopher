@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/09/09 14:53:31 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:11:48 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int						init_data(t_data *data, t_param param);
 pthread_mutex_t			*init_forks(t_param param);
 int						init_philo(t_data *data, t_param param,
 							pthread_mutex_t *forks);
+size_t					get_current_time(void);
 
 #endif

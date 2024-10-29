@@ -3,7 +3,8 @@ NAME	:=	philosopher
 SRC		:=	main.c		\
 			atoi.c		\
 			memory_philosopher.c	\
-			init.c
+			init.c	\
+			get_current_time.c	
 SRC_DIR	:=	src
 BUILD	:=	.build
 SRC 	:=	$(addprefix $(SRC_DIR)/, $(SRC))
