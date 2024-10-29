@@ -4,7 +4,10 @@ SRC		:=	main.c		\
 			atoi.c		\
 			memory_philosopher.c	\
 			init.c	\
-			get_current_time.c	
+			get_current_time.c	\
+			ft_usleep.c \
+			routine_philo.c \
+			monitor.c 
 SRC_DIR	:=	src
 BUILD	:=	.build
 SRC 	:=	$(addprefix $(SRC_DIR)/, $(SRC))

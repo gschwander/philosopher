@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 07:38:44 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:47:08 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,24 @@
 int ft_philosopher(t_param param)
 {
     t_data  data;
+    pthread_t monitor;
     pthread_mutex_t *forks;
+    int i;
     
+    i = 0;
     if(init_data(&data, param))
         return (1);
     forks = init_forks(param);
     if (!forks)
         return (1);
     init_philo(&data, param, forks);
+    while (i < param.nbr_of_philo)
+    {
+        pthread_create(&data.philo[i].thread, NULL, routine_philo, &data.philo[i]);
+        i++;
+    }
+    pthread_create(&monitor, NULL, monitor, &data);
+    pthread_join(monitor, NULL);
 }
 
 static int check_args(char **argc)
@@ -45,7 +55,6 @@ static int check_args(char **argc)
     return (0);
 }
 
-// coder une fonction qui va checker les arguments
 int main(int argv, char **argc)
 {
     t_param param;
