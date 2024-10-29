@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 11:44:12 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:02:40 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int ft_philosopher(t_param param)
     }
     pthread_create(&monitor, NULL, monitor, &data);
     pthread_join(monitor, NULL);
+    data_clean(&data, forks);
 }
 
 static int check_args(char **argc)
