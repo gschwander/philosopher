@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:40:28 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:17:39 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:30:26 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int time_since_meal(t_philo *philo)
 {
+    // printf("time since meal %zu\n", get_current_time() - philo->last_meal);
+    // printf("time to die %zu\n", philo->time_to_die);
     if (get_current_time() - philo->last_meal > philo->time_to_die)
         return (1);
     return (0);

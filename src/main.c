@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:19:10 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:27:51 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int main(int argv, char **argc)
     if (check_args(argc))
         return (1);
     param.nbr_of_philo = ft_atoi(argc[1]);
-    param.time_to_die = ft_atoi(argc[2]) * 1000;
-    param.time_to_eat = ft_atoi(argc[3]) * 1000;
-    param.time_to_sleep = ft_atoi(argc[4]) * 1000;
+    param.time_to_die = ft_atoi(argc[2]);
+    param.time_to_eat = ft_atoi(argc[3]);
+    param.time_to_sleep = ft_atoi(argc[4]);
     if (argv == 6)
-        param.nbr_of_times_each_philo_must_eat = ft_atoi(argc[5]) * 1000;
+        param.nbr_of_times_each_philo_must_eat = ft_atoi(argc[5]);
     else
         param.nbr_of_times_each_philo_must_eat = -1;
     ft_philosopher(param);
