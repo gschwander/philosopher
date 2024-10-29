@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:40:28 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:30:26 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:46:56 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int time_since_meal(t_philo *philo)
 {
-    // printf("time since meal %zu\n", get_current_time() - philo->last_meal);
-    // printf("time to die %zu\n", philo->time_to_die);
     if (get_current_time() - philo->last_meal > philo->time_to_die)
         return (1);
     return (0);
@@ -34,10 +32,10 @@ void *ft_monitor(void *d)
         {
             if (!data->philo[i].eating && time_since_meal(&data->philo[i]))
             {
-                pthread_mutex_lock(data->philo[i].dead_lock);
-                data->dead_flag = 1;
                 pthread_mutex_lock(&data->write_lock);
+                pthread_mutex_lock(data->philo[i].dead_lock);
                 printf("%zu ms %d died\n", get_current_time()- data->start_time, data->philo[i].id);
+                data->dead_flag = 1;
                 pthread_mutex_unlock(&data->write_lock);
                 pthread_mutex_unlock(data->philo[i].dead_lock);
                 return (NULL);
