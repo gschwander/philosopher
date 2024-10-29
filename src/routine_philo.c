@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:36:38 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:33:28 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:59:37 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void lock_forks(t_philo *philo)
 
 void eating(t_philo *philo)
 {
-    printf("philo %d arrive\n", philo->id);
     lock_forks(philo);
     philo->eating = 1;
     pthread_mutex_lock(philo->write_lock);

@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:27:51 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:51:12 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int main(int argv, char **argc)
     if (argv == 6)
         param.nbr_of_times_each_philo_must_eat = ft_atoi(argc[5]);
     else
-        param.nbr_of_times_each_philo_must_eat = -1;
+        param.nbr_of_times_each_philo_must_eat = 0;
     ft_philosopher(param);
 }

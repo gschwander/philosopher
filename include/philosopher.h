@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:14:04 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:58:43 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 	pthread_t			thread;
 	int					id;
 	int					eating;
-	int					meals_eaten;
+	size_t				meals_eaten;
 	size_t				*start_time;
 	size_t				last_meal;
 	size_t				time_to_die;
