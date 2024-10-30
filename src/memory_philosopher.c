@@ -6,29 +6,11 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:38:35 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 17:40:24 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:56:03 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-// pthread_t *ft_philosopher(t_param param)
-// {
-//     pthread_t *philosopher;
-//     int i;
-
-//     i = 0;
-//     ft_alloc_philo(param);
-//     philosopher = malloc(sizeof(pthread_t) * param.nbr_of_philo);
-//     if (!philosopher)
-//         return (perror("Malloc failed"), 1);
-//     while (i < param.nbr_of_philo)
-//     {
-//         pthread_create(&philosopher[i], NULL, philosopher, NULL);
-//         i++;
-//     }
-//     return (philosopher);
-// }
 
 void data_clean(t_data *data, pthread_mutex_t *forks)
 {
@@ -38,6 +20,7 @@ void data_clean(t_data *data, pthread_mutex_t *forks)
     while (i < data->param.nbr_of_philo)
     {
         pthread_mutex_destroy(&forks[i]);
+        pthread_join(data->philo[i].thread, NULL);
         i++;
     }
     free(forks);

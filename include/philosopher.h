@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 22:58:43 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:24:19 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void					*ft_monitor(void *d);
 
 // init_philo_utils.c
 void					init_time_philo(t_philo *philo, t_param param);
+void					init_mutex_philo(t_philo *philo, t_data *data);
 
 // memory_philosopher.c
 void					data_clean(t_data *data, pthread_mutex_t *forks);

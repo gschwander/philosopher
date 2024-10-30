@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:28:29 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 18:14:47 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:25:45 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
     i = 0;
     while (i < param.nbr_of_philo)
     {
-        data->philo[i].id = i;
+        data->philo[i].id = i + 1;
         data->philo[i].start_time = &data->start_time;
         data->philo[i].eating = 0;
         data->philo[i].meals_eaten = 0;
@@ -32,10 +32,7 @@ int init_philo(t_data *data, t_param param, pthread_mutex_t *forks)
             data->philo[i].l_fork = &forks[i + 1];
         else
             data->philo[i].l_fork = &forks[0];
-        data->philo[i].dead_lock = &data->dead_lock;
-        data->philo[i].write_lock = &data->write_lock;
-        data->philo[i].meal_lock = &data->meal_lock;
-        data->philo[i].dead = &data->dead_flag;
+        init_mutex_philo(&data->philo[i], data);
         i++;
     }
     return (0);

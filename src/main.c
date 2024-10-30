@@ -6,11 +6,25 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/29 22:51:12 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:55:42 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+int one_philo(t_param param)
+{
+    size_t start;
+    
+    if (param.nbr_of_philo == 1)
+    {
+        start = get_current_time();
+        ft_usleep(param.time_to_die, NULL);
+        printf("%zu ms 1 died\n", get_current_time() - start);
+        return (1);
+    }
+    return (0);
+}
 
 int ft_philosopher(t_param param)
 {
@@ -21,6 +35,8 @@ int ft_philosopher(t_param param)
     
     i = 0;
     data.param = param;
+    if (one_philo(param))
+        return (0);
     if(init_data(&data, param))
         return (1);
     forks = init_forks(param);
