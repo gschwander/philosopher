@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/30 09:55:42 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:36:36 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int ft_philosopher(t_param param)
     data.param = param;
     if (one_philo(param))
         return (0);
-    if(init_data(&data, param))
+    if(init_data(&data, data.param))
         return (1);
     forks = init_forks(param);
     if (!forks)
-        return (1);
+        return (free(data.philo), 1);
     init_philo(&data, param, forks);
     while (i < param.nbr_of_philo)
     {
