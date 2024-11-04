@@ -35,11 +35,9 @@ $(BUILD)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	@if [ -d $(BUILD) ]; then $(RM) -rf $(BUILD) && echo "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m"; fi
-	# @$(MAKE) --no-print-directory
 
 fclean: clean
 	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
-	# @$(MAKE) --no-print-directory
 
 val : all
 	/usr/local/bin/valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./${NAME}
