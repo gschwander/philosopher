@@ -6,97 +6,92 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:40:28 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/30 08:52:48 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:16:04 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int time_since_meal(t_philo *philo)
+int	exection_death(t_data *data, size_t i)
 {
-    if (get_current_time() - philo->last_meal > philo->time_to_die)
-        return (1);
-    return (0);
+	pthread_mutex_lock(&data->write_lock);
+	pthread_mutex_lock(data->philo[i].dead_lock);
+	printf("%zu ms %d died\n", get_current_time() - data->start_time,
+		data->philo[i].id);
+	data->dead_flag = 1;
+	pthread_mutex_unlock(&data->write_lock);
+	pthread_mutex_unlock(data->philo[i].dead_lock);
+	return (1);
 }
 
-int exection_death(t_data *data, size_t i)
+void	ft_monitor_no_limit_eat(t_data *data)
 {
-    pthread_mutex_lock(&data->write_lock);
-    pthread_mutex_lock(data->philo[i].dead_lock);
-    printf("%zu ms %d died\n", get_current_time()- data->start_time, data->philo[i].id);
-    data->dead_flag = 1;
-    pthread_mutex_unlock(&data->write_lock);
-    pthread_mutex_unlock(data->philo[i].dead_lock);
-    return (1);
+	size_t	i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < data->param.nbr_of_philo)
+		{
+			if (!data->philo[i].eating && tsm(&data->philo[i]))
+			{
+				if (exection_death(data, i))
+					return ;
+			}
+			i++;
+		}
+	}
 }
 
-void ft_monitor_no_limit_eat(t_data *data)
+int	check_nbr_of_meals(t_data *data, size_t j)
 {
-    size_t i;
+	size_t	i;
 
-    while (1)
-    {
-        i = 0;
-        while (i < data->param.nbr_of_philo)
-        {
-            if (!data->philo[i].eating && time_since_meal(&data->philo[i]))
-            {
-                if (exection_death(data, i))
-                    return ;
-            }
-            i++;
-        }
-    }
+	i = 0;
+	while (i < data->param.nbr_of_philo)
+	{
+		if (data->philo[i].meals_eaten < data->param.not_p_must_eat)
+			return (0);
+		i++;
+	}
+	pthread_mutex_lock(data->philo[j].dead_lock);
+	data->dead_flag = 1;
+	pthread_mutex_unlock(data->philo[j].dead_lock);
+	return (1);
 }
 
-int check_nbr_of_meals(t_data *data, size_t j)
+void	ft_monitor_limit_eat(t_data *data)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while (i < data->param.nbr_of_philo)
-    {
-        if (data->philo[i].meals_eaten < data->param.nbr_of_times_each_philo_must_eat)
-            return (0);
-        i++;
-    }
-    pthread_mutex_lock(data->philo[j].dead_lock);
-    data->dead_flag = 1;
-    pthread_mutex_unlock(data->philo[j].dead_lock);
-    return (1);
+	while (1)
+	{
+		i = 0;
+		while (i < data->param.nbr_of_philo)
+		{
+			if (data->philo[i].meals_eaten >= data->param.not_p_must_eat)
+			{
+				if (check_nbr_of_meals(data, i))
+					return ;
+			}
+			else if ((!data->philo[i].eating) && (tsm(&data->philo[i])))
+			{
+				if (exection_death(data, i))
+					return ;
+			}
+			i++;
+		}
+	}
 }
 
-void ft_monitor_limit_eat(t_data *data)
+void	*ft_monitor(void *d)
 {
-    size_t i;
+	t_data	*data;
 
-    while (1)
-    {
-        i = 0;
-        while (i < data->param.nbr_of_philo)
-        {
-            if (data->philo[i].meals_eaten >= data->param.nbr_of_times_each_philo_must_eat)
-            {
-                if (check_nbr_of_meals(data, i))
-                    return ;
-            }
-            else if (!data->philo[i].eating && time_since_meal(&data->philo[i]))
-            {
-                if (exection_death(data, i))
-                    return ;
-            }
-            i++;
-        }
-    }
-}
-
-void *ft_monitor(void *d)
-{
-    t_data *data;
-    data = (t_data *)d;
-    if (!data->param.nbr_of_times_each_philo_must_eat)
-        ft_monitor_no_limit_eat(data);
-    else
-        ft_monitor_limit_eat(data);
-    return (NULL);
+	data = (t_data *)d;
+	if (!data->param.not_p_must_eat)
+		ft_monitor_no_limit_eat(data);
+	else
+		ft_monitor_limit_eat(data);
+	return (NULL);
 }

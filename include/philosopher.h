@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/10/30 09:24:19 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:37 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_param
 	unsigned long long	time_to_die;
 	unsigned long long	time_to_eat;
 	unsigned long long	time_to_sleep;
-	unsigned long long	nbr_of_times_each_philo_must_eat;
+	unsigned long long	not_p_must_eat;
 }						t_param;
 
 typedef struct s_philo
@@ -59,7 +59,7 @@ typedef struct s_data
 }						t_data;
 
 // memory_philosopher.c
-size_t		ft_atoi(char *str);
+size_t					ft_atoi(char *str);
 
 // init.c
 int						init_data(t_data *data, t_param param);
@@ -72,6 +72,7 @@ size_t					get_current_time(void);
 
 // ft_usleep.c
 int						ft_usleep(size_t time, t_philo *philo);
+int						tsm(t_philo *philo);
 
 // routine_philo.c
 void					*routine_philo(void *p);
