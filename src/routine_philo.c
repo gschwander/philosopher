@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:36:38 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/04 11:06:22 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:49:23 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void	eating(t_philo *philo)
 	pthread_mutex_lock(philo->r_fork);
 	pthread_mutex_lock(philo->l_fork);
 	pthread_mutex_lock(philo->write_lock);
-	philo->eating = 1;
-	philo->last_meal = get_current_time();
-	printf("%zu ms %d has taken a fork\n", get_current_time()
-		- *philo->start_time, philo->id);
-	printf("%zu ms %d has taken a fork\n", get_current_time()
-		- *philo->start_time, philo->id);
-	printf("%zu ms %d is eating\n", get_current_time() - *philo->start_time,
-		philo->id);
+	if (!*philo->dead)
+	{
+		philo->eating = 1;
+		philo->last_meal = get_current_time();
+		printf("%zu ms %d has taken a fork\n", get_current_time()
+			- *philo->start_time, philo->id);
+		printf("%zu ms %d has taken a fork\n", get_current_time()
+			- *philo->start_time, philo->id);
+		printf("%zu ms %d is eating\n", get_current_time() - *philo->start_time,
+			philo->id);
+	}
 	pthread_mutex_unlock(philo->write_lock);
 	ft_usleep(philo->time_to_eat, philo);
 	philo->meals_eaten++;
@@ -44,9 +47,14 @@ void	eating(t_philo *philo)
 static int	ft_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(philo->write_lock);
-	printf("%zu ms %d is sleeping\n", get_current_time() - *philo->start_time,
-		philo->id);
+	if (!*philo->dead)
+	{
+		printf("%zu ms %d is sleeping\n", get_current_time() - *philo->start_time,
+			philo->id);
+	}
 	pthread_mutex_unlock(philo->write_lock);
+	if (*philo->dead)
+		return(1);
 	if (ft_usleep(philo->time_to_sleep, philo))
 		return (1);
 	return (0);
