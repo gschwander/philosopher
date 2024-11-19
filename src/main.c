@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:46:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/04 11:15:37 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:10:31 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	one_philo(t_param param)
 	{
 		start = get_current_time();
 		ft_usleep(param.time_to_die, NULL);
-		printf("%zu ms 1 died\n", get_current_time() - start);
+		printf("%zu 1 died\n", get_current_time() - start);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:36:38 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/14 15:49:23 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:10:31 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	think(t_philo *philo)
 {
 	pthread_mutex_lock(philo->write_lock);
-	printf("%zu ms %d is thinking\n", get_current_time() - *philo->start_time,
+	printf("%zu %d is thinking\n", get_current_time() - *philo->start_time,
 		philo->id);
 	pthread_mutex_unlock(philo->write_lock);
 }
@@ -29,11 +29,11 @@ void	eating(t_philo *philo)
 	{
 		philo->eating = 1;
 		philo->last_meal = get_current_time();
-		printf("%zu ms %d has taken a fork\n", get_current_time()
+		printf("%zu %d has taken a fork\n", get_current_time()
 			- *philo->start_time, philo->id);
-		printf("%zu ms %d has taken a fork\n", get_current_time()
+		printf("%zu %d has taken a fork\n", get_current_time()
 			- *philo->start_time, philo->id);
-		printf("%zu ms %d is eating\n", get_current_time() - *philo->start_time,
+		printf("%zu %d is eating\n", get_current_time() - *philo->start_time,
 			philo->id);
 	}
 	pthread_mutex_unlock(philo->write_lock);
@@ -49,7 +49,7 @@ static int	ft_sleep(t_philo *philo)
 	pthread_mutex_lock(philo->write_lock);
 	if (!*philo->dead)
 	{
-		printf("%zu ms %d is sleeping\n", get_current_time() - *philo->start_time,
+		printf("%zu %d is sleeping\n", get_current_time() - *philo->start_time,
 			philo->id);
 	}
 	pthread_mutex_unlock(philo->write_lock);
