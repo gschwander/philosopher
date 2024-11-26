@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/26 15:24:30 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:32:10 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ int philosopher(t_param param)
     forks = init_fork(data.param);
     if (!forks)
         return(1);
+    init_philo(&data);
 }
