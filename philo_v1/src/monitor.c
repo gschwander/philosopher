@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:40:28 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/19 18:10:31 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:25:23 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_nbr_of_meals(t_data *data, size_t j)
 	i = 0;
 	while (i < data->param.nbr_of_philo)
 	{
-		if (data->philo[i].meals_eaten < data->param.not_p_must_eat)
+		if (check_eaten(&data->philo[i]) < data->param.not_p_must_eat)
 			return (0);
 		i++;
 	}
@@ -69,12 +69,12 @@ void	ft_monitor_limit_eat(t_data *data)
 		i = 0;
 		while (i < data->param.nbr_of_philo)
 		{
-			if (data->philo[i].meals_eaten >= data->param.not_p_must_eat)
+			if (check_eaten(&data->philo[i]) >= data->param.not_p_must_eat)
 			{
 				if (check_nbr_of_meals(data, i))
 					return ;
 			}
-			else if ((!data->philo[i].eating) && (tsm(&data->philo[i])))
+			else if (!check_if_eat(&data->philo[i]) && (tsm(&data->philo[i])))
 			{
 				if (exection_death(data, i))
 					return ;

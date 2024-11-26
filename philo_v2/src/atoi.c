@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_usleep.c                                        :+:      :+:    :+:   */
+/*   atoi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 08:14:21 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/04 11:13:43 by gschwand         ###   ########.fr       */
+/*   Created: 2024/08/22 13:31:35 by gschwand          #+#    #+#             */
+/*   Updated: 2024/11/04 11:06:59 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-// time_since_meal 
-int	tsm(t_philo *philo)
+int	ft_is_digit(char c)
 {
-	if (get_current_time() - philo->last_meal > philo->time_to_die)
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	ft_usleep(size_t time, t_philo *philo)
+size_t	ft_atoi(char *str)
 {
-	size_t	start;
+	int		i;
+	size_t	res;
 
-	start = get_current_time();
-	while (get_current_time() - start < time)
+	i = 0;
+	res = 0;
+	while (str[i] && ft_is_digit(str[i]) == 1)
 	{
-		usleep(100);
-		if (philo)
-		{
-			if (*philo->dead)
-				return (1);
-		}
+		res = res * 10 + str[i] - '0';
+		i++;
 	}
-	return (0);
+	return (res);
 }

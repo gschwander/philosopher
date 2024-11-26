@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philo_utils.c                                 :+:      :+:    :+:   */
+/*   get_current_time.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 16:30:44 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/04 11:07:42 by gschwand         ###   ########.fr       */
+/*   Created: 2024/10/29 08:10:52 by gschwand          #+#    #+#             */
+/*   Updated: 2024/11/04 10:39:09 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	init_time_philo(t_philo *philo, t_param param)
+size_t	get_current_time(void)
 {
-	philo->time_to_die = param.time_to_die;
-	philo->time_to_eat = param.time_to_eat;
-	philo->time_to_sleep = param.time_to_sleep;
-}
+	struct timeval	time;
 
-void	init_mutex_philo(t_philo *philo, t_data *data)
-{
-	philo->dead_lock = &data->dead_lock;
-	philo->write_lock = &data->write_lock;
-	philo->meal_lock = &data->meal_lock;
-	philo->dead = &data->dead_flag;
+	if (gettimeofday(&time, NULL) == -1)
+		return (perror("gettimeofday() error\n"), 0);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
