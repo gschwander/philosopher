@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/26 15:55:38 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:37:43 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,11 @@ int					init_data(t_data *data);
 
 // get_current_time.c
 size_t	get_current_time(void);
+
+// routine_philo.c
+void	*routine_philo(void *p);
+
+// check_mutex.c
+int check_dead_flag(t_philo *philo);
 
 #endif
