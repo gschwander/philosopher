@@ -6,11 +6,26 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/27 16:49:59 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:59:33 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+int	one_philo(t_param param)
+{
+	size_t	start;
+
+	if (param.nbr_of_philo == 1)
+	{
+		start = get_current_time();
+    	printf("%zu 1 has taken a fork\n", get_current_time() - start);
+		ft_usleep(param.time_to_die, NULL);
+		printf("%zu 1 died\n", get_current_time() - start);
+		return (1);
+	}
+	return (0);
+}
 
 void	data_clean(t_data *data, pthread_mutex_t *forks)
 {
@@ -61,6 +76,8 @@ int philosopher(t_param param)
     pthread_mutex_t *forks;
     
     data.param = param;
+	if (one_philo(param))
+		return (0);
     if(init_data(&data))
         return(1);
     forks = init_forks(data.param);
