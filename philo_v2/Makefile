@@ -1,13 +1,13 @@
 NAME	:=	philo
 
 SRC		:=	main.c		\
+			philosopher.c 	\
 			atoi.c		\
-			memory_philosopher.c	\
-			init.c	\
+			check_mutex.c 	\
+			initialisation.c	\
 			get_current_time.c	\
 			ft_usleep.c \
 			routine_philo.c \
-			init_philo_utils.c \
 			monitor.c 
 SRC_DIR	:=	src
 BUILD	:=	.build

@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:20:34 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/26 15:22:24 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:12:45 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main(int ac, char **av)
 	t_param	param;
 
 	if (ac != 5 && ac != 6)
-		return (ft_putstr_fd("Wrong number of arguments"), 2);
+		return (perror("Wrong number of arguments"), 2);
 	if (check_args(av))
 		return (1);
 	param.nbr_of_philo = ft_atoi(av[1]);
@@ -48,5 +48,5 @@ int main(int ac, char **av)
 		param.not_p_must_eat = ft_atoi(av[5]);
 	else
 		param.not_p_must_eat = 0;
-	ft_philosopher(param);
+	philosopher(param);
 }

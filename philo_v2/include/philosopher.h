@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/26 16:37:43 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:45:06 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,15 @@ void	*routine_philo(void *p);
 
 // check_mutex.c
 int check_dead_flag(t_philo *philo);
+int check_eating_flag(t_philo *philo);
+size_t check_eaten(t_philo *philo);
+
+// monitor.c
+void	*ft_monitor(void *d);
+
+// ft_usleep.c
+int	ft_usleep(size_t time, t_philo *philo);
+int	tsm(t_philo *philo);
+
 
 #endif

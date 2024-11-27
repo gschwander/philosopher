@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:07:36 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/26 15:58:16 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:52:07 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int init_data(t_data *data)
 pthread_mutex_t *init_forks(t_param param)
 {
     pthread_mutex_t *forks;
-    int i;
+    size_t i;
 
     i = 0;
     forks = malloc(sizeof(pthread_mutex_t) * param.nbr_of_philo);
@@ -64,7 +64,7 @@ int init_philo(t_data *data, pthread_mutex_t *forks)
     while (i < data->param.nbr_of_philo)
     {
 		data->philo[i].id = i + 1;
-		data->philo[i].start_time = data->start_time;
+		data->philo[i].start_time = &data->start_time;
 		data->philo[i].last_meal = data->start_time;
 		data->philo[i].eating = 0;
 		data->philo[i].meals_eaten = 0;
