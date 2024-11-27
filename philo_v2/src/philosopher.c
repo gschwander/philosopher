@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/27 15:48:34 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:49:59 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	data_clean(t_data *data, pthread_mutex_t *forks)
 	while (i < data->param.nbr_of_philo)
 	{
 		pthread_join(data->philo[i].thread, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < data->param.nbr_of_philo)
+	{
 		pthread_mutex_destroy(&forks[i]);
 		pthread_mutex_destroy(&data->philo[i].meal_lock);
 		i++;

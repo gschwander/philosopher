@@ -16,7 +16,7 @@ OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEPS 	:=	$(OBJ:.o=.d)
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -g
+CFLAGS	:=	-Wall -Werror -Wextra -pthread -Iinclude -g
 
 all: create_dirs $(NAME)
 
