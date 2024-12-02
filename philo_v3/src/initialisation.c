@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:07:36 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 16:04:56 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:43:51 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_data(t_data *data)
 	data->dead_flag = 0;
 	pthread_mutex_init(&data->dead_lock, NULL);
 	pthread_mutex_init(&data->write_lock, NULL);
+	pthread_mutex_init(&data->sync_start, NULL);
 	data->philo = malloc(sizeof(t_philo) * data->param.nbr_of_philo);
 	if (!data->philo)
 		return (1);
@@ -53,6 +54,7 @@ static void	init_mutex_philo(t_philo *philo, t_data *data)
 	philo->write_lock = &data->write_lock;
 	pthread_mutex_init(&philo->meal_lock, NULL);
 	philo->dead = &data->dead_flag;
+	philo->sync_start = &data->sync_start;
 }
 
 int	init_philo(t_data *data, pthread_mutex_t *forks)
@@ -60,12 +62,9 @@ int	init_philo(t_data *data, pthread_mutex_t *forks)
 	size_t	i;
 
 	i = 0;
-	data->start_time = get_current_time();
 	while (i < data->param.nbr_of_philo)
 	{
 		data->philo[i].id = i + 1;
-		data->philo[i].start_time = &data->start_time;
-		data->philo[i].last_meal = data->start_time;
 		data->philo[i].eating = 0;
 		data->philo[i].meals_eaten = 0;
 		init_time_philo(&data->philo[i], data->param);

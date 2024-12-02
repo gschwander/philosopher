@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 14:20:45 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:43:44 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	int				*dead;
+	pthread_mutex_t *sync_start;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*dead_lock;
@@ -52,6 +53,7 @@ typedef struct s_data
 	int				dead_flag;
 	t_param			param;
 	size_t			start_time;
+	pthread_mutex_t sync_start;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			*philo;

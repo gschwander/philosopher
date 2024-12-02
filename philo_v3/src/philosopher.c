@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 16:30:14 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:51:01 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,26 @@ void	data_clean(t_data *data, pthread_mutex_t *forks)
 	}
 	free(forks);
 	free(data->philo);
+	pthread_mutex_destroy(&data->sync_start);
 	pthread_mutex_destroy(&data->dead_lock);
 	pthread_mutex_destroy(&data->write_lock);
 }
 
-static void	start_exec_philo(t_philo *philo, size_t nbr_of_philo)
+static void	start_exec_philo(t_data *data, size_t nbr_of_philo)
 {
 	size_t	i;
 
 	i = 0;
+	pthread_mutex_lock(&data->sync_start);
+	data->start_time = get_current_time();
 	while (i < nbr_of_philo)
 	{
-		pthread_create(&philo[i].thread, NULL, routine_philo, &philo[i]);
+		data->philo[i].start_time = &data->start_time;
+		data->philo[i].last_meal = data->start_time;
+		pthread_create(&data->philo[i].thread, NULL, routine_philo, &data->philo[i]);
 		i++;
 	}
+	pthread_mutex_unlock(&data->sync_start);
 }
 
 static void	start_monitor(t_data *data)
@@ -84,7 +90,7 @@ int	philosopher(t_param param)
 	if (!forks)
 		return (1);
 	init_philo(&data, forks);
-	start_exec_philo(data.philo, data.param.nbr_of_philo);
+	start_exec_philo(&data, data.param.nbr_of_philo);
 	start_monitor(&data);
 	data_clean(&data, forks);
 	return (0);

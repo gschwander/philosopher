@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:18 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 14:14:25 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:49:32 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	*ft_monitor(void *d)
 	t_data	*data;
 
 	data = (t_data *)d;
+	pthread_mutex_lock(&data->sync_start);
+	pthread_mutex_unlock(&data->sync_start);
 	if (!data->param.not_p_must_eat)
 		ft_monitor_no_limit_eat(data);
 	else

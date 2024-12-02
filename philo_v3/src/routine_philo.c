@@ -6,11 +6,21 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 16:53:25 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/02 14:31:26 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+void change_stat_meal(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_lock);
+	if (philo->eating == 1)
+		philo->eating = 0;
+	else
+		philo->eating = 1;
+	pthread_mutex_unlock(&philo->meal_lock);
+}
 
 int taking_fork(pthread_mutex_t *first_fork, pthread_mutex_t *second_fork, t_philo *philo)
 {
@@ -49,15 +59,16 @@ static void	end_philo(t_philo *philo)
 
 static void	eating(t_philo *philo)
 {
+	change_stat_meal(philo);
 	if (philo->id % 2 == 0)
 	{
 		if (taking_fork(philo->l_fork, philo->r_fork, philo))
-			return ;
+			return (change_stat_meal(philo));
 	}
 	else
 	{
 		if (taking_fork(philo->r_fork, philo->l_fork, philo))
-			return ;
+			return change_stat_meal(philo);
 	}
 	if (check_dead_flag(philo))
 		return (end_philo(philo));
@@ -96,8 +107,12 @@ void	think(t_philo *philo)
 void	*routine_philo(void *p)
 {
 	t_philo	*philo;
+	size_t i;
 
+	i = 0;
 	philo = (t_philo *)p;
+	pthread_mutex_lock(philo->sync_start);
+	pthread_mutex_unlock(philo->sync_start);
 	while (1)
 	{
 		if (check_dead_flag(philo))
