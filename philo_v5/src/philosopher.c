@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:51:01 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:33:21 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	one_philo(t_param param)
 	return (0);
 }
 
-void	data_clean(t_data *data, pthread_mutex_t *forks)
+void	data_clean(t_data *data, t_fork *forks)
 {
 	size_t	i;
 
@@ -40,7 +40,7 @@ void	data_clean(t_data *data, pthread_mutex_t *forks)
 	i = 0;
 	while (i < data->param.nbr_of_philo)
 	{
-		pthread_mutex_destroy(&forks[i]);
+		pthread_mutex_destroy(&forks[i].mutex);
 		pthread_mutex_destroy(&data->philo[i].meal_lock);
 		i++;
 	}
@@ -79,7 +79,7 @@ static void	start_monitor(t_data *data)
 int	philosopher(t_param param)
 {
 	t_data			data;
-	pthread_mutex_t	*forks;
+	t_fork	*forks;
 
 	data.param = param;
 	if (one_philo(param))

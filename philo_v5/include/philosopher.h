@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:43:44 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:32:41 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef struct s_param
 	size_t			not_p_must_eat;
 }					t_param;
 
+typedef struct	s_fork
+{
+	pthread_mutex_t mutex;
+	int			status;
+}				t_fork;
+
 typedef struct s_philo
 {
 	pthread_t		thread;
@@ -41,8 +47,8 @@ typedef struct s_philo
 	size_t			time_to_sleep;
 	int				*dead;
 	pthread_mutex_t *sync_start;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*l_fork;
+	t_fork	*r_fork;
+	t_fork	*l_fork;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	meal_lock;
@@ -66,8 +72,8 @@ int					philosopher(t_param param);
 size_t				ft_atoi(char *str);
 
 // initialisation.c
-int					init_philo(t_data *data, pthread_mutex_t *forks);
-pthread_mutex_t		*init_forks(t_param param);
+int					init_philo(t_data *data, t_fork *forks);
+t_fork		*init_forks(t_param param);
 int					init_data(t_data *data);
 
 // get_current_time.c

@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:07:36 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:43:51 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:32:30 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,20 @@ int	init_data(t_data *data)
 	return (0);
 }
 
-pthread_mutex_t	*init_forks(t_param param)
+// lorsque status est egale a 0 cela signifie que la forchette est libre
+t_fork	*init_forks(t_param param)
 {
-	pthread_mutex_t	*forks;
-	size_t			i;
+	t_fork	*forks;
+	size_t	i;
 
 	i = 0;
-	forks = malloc(sizeof(pthread_mutex_t) * param.nbr_of_philo);
+	forks = malloc(sizeof(t_fork) * param.nbr_of_philo);
 	if (!forks)
 		return (NULL);
 	while (i < param.nbr_of_philo)
 	{
-		pthread_mutex_init(&forks[i], NULL);
+		pthread_mutex_init(&forks[i].mutex, NULL);
+		forks[i].status = 0;
 		i++;
 	}
 	return (forks);
@@ -57,7 +59,7 @@ static void	init_mutex_philo(t_philo *philo, t_data *data)
 	philo->sync_start = &data->sync_start;
 }
 
-int	init_philo(t_data *data, pthread_mutex_t *forks)
+int	init_philo(t_data *data, t_fork *forks)
 {
 	size_t	i;
 
