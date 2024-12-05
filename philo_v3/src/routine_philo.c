@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 14:31:26 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:10:38 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,7 @@ void	think(t_philo *philo)
 void	*routine_philo(void *p)
 {
 	t_philo	*philo;
-	size_t i;
 
-	i = 0;
 	philo = (t_philo *)p;
 	pthread_mutex_lock(philo->sync_start);
 	pthread_mutex_unlock(philo->sync_start);

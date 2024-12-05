@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/04 18:28:57 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/05 09:36:52 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,16 +125,6 @@ static void	end_philo(t_philo *philo)
 	pthread_mutex_lock(&philo->l_fork->mutex);
 	philo->l_fork->status = 0;
 	pthread_mutex_unlock(&philo->l_fork->mutex);
-	
-
-
-	
-	pthread_mutex_lock(philo->write_lock);
-	printf_time_philo("%zu %d has given a fork\n", *philo->start_time,
-	philo->id);
-	printf_time_philo("%zu %d has given a fork\n", *philo->start_time,
-	philo->id);
-	pthread_mutex_unlock(philo->write_lock);
 }
 
 static void eating(t_philo *philo)
@@ -142,12 +132,10 @@ static void eating(t_philo *philo)
 	if (taking_fork(philo))
 		return ;
 	pthread_mutex_lock(philo->write_lock);
-	printf("temps %d avant start dej %zu ms\n", philo->id, get_current_time() - philo->last_meal);
 	pthread_mutex_unlock(philo->write_lock);
 	ft_usleep(philo->time_to_eat, philo);
 	pthread_mutex_lock(&philo->meal_lock);
 	pthread_mutex_lock(philo->write_lock);
-	printf("temps %d pour manger %zu ms\n", philo->id, get_current_time() - philo->last_meal);
 	pthread_mutex_unlock(philo->write_lock);
 	philo->last_meal = get_current_time();
 	philo->meals_eaten++;
@@ -183,13 +171,10 @@ void	think(t_philo *philo)
 void	*routine_philo(void *p)
 {
 	t_philo	*philo;
-	size_t i;
 
-	i = 0;
 	philo = (t_philo *)p;
 	pthread_mutex_lock(philo->sync_start);
 	pthread_mutex_unlock(philo->sync_start);
-	printf("philo%d\n", philo->id);
 	while (1)
 	{
 		if (check_dead_flag(philo))
