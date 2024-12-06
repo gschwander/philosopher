@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/04 18:07:00 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:23:17 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	start_exec_philo(t_data *data, size_t nbr_of_philo)
 	{
 		data->philo[i].start_time = &data->start_time;
 		data->philo[i].last_meal = data->start_time;
-		pthread_create(&data->philo[i].thread, NULL, routine_philo, &data->philo[i]);
+		pthread_create(&data->philo[i].thread, NULL, routine_philo,
+			&data->philo[i]);
 		i++;
 	}
 	pthread_mutex_unlock(&data->sync_start);
@@ -78,7 +79,7 @@ static void	start_monitor(t_data *data)
 
 int	philosopher(t_param param)
 {
-	t_data			data;
+	t_data	data;
 	t_fork	*forks;
 
 	data.param = param;

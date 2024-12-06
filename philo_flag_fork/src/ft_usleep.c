@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 08:14:21 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/05 09:38:04 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:23:32 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // time_since_meal
 int	tsm(t_philo *philo)
 {
-	size_t time;
+	size_t	time;
 
 	pthread_mutex_lock(&philo->meal_lock);
 	time = get_current_time() - philo->last_meal;
