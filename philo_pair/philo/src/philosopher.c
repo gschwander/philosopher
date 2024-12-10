@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 17:25:37 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:53:43 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ static int	start_exec_philo(t_data *data, size_t nbr_of_philo)
 
 	i = 0;
 	pthread_mutex_lock(&data->sync_start);
-	data->start_time = get_current_time();
 	while (i < nbr_of_philo)
 	{
-		data->philo[i].last_meal = data->start_time;
 		if (pthread_create(&data->philo[i].thread, NULL, routine_philo,
 				&data->philo[i]))
 			return (philo_join(data, i), perror("start_exec_philo"), 1);
@@ -48,10 +46,17 @@ static int	start_exec_philo(t_data *data, size_t nbr_of_philo)
 static int	start_monitor(t_data *data)
 {
 	pthread_t	monitor;
+	size_t i;
 
+	i = 0;
+	data->start_time = get_current_time();
+	while (i < data->param.nbr_of_philo)
+	{
+		data->philo[i].last_meal = data->start_time;
+		i++;
+	}
 	if (pthread_create(&monitor, NULL, ft_monitor, data))
 	{
-		pthread_mutex_unlock(&data->sync_start);
 		data_clean(data, data->forks);
 		perror("start_monitor");
 		return (1);
