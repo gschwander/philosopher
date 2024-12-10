@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:05:34 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 11:28:52 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:43:21 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	change_stat_meal(t_philo *philo)
 	pthread_mutex_unlock(&philo->meal_lock);
 }
 
-int taking_first_fork(pthread_mutex_t *ff, t_philo *philo)
+int	taking_first_fork(pthread_mutex_t *ff, t_philo *philo)
 {
-    pthread_mutex_lock(ff);
+	pthread_mutex_lock(ff);
 	if (check_dead_flag(philo))
 	{
 		pthread_mutex_unlock(ff);
@@ -34,13 +34,13 @@ int taking_first_fork(pthread_mutex_t *ff, t_philo *philo)
 	printf_time_philo("%zu %d has taken a fork\n", *philo->start_time,
 		philo->id);
 	pthread_mutex_unlock(philo->write_lock);
-    return (0);
+	return (0);
 }
 
 int	taking_fork(pthread_mutex_t *ff, pthread_mutex_t *sf, t_philo *philo)
 {
 	if (taking_first_fork(ff, philo))
-        return (1);
+		return (1);
 	pthread_mutex_lock(sf);
 	change_stat_meal(philo);
 	if (check_dead_flag(philo))

@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 15:41:21 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:44:04 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ void	*routine_philo(void *p)
 	philo = (t_philo *)p;
 	pthread_mutex_lock(philo->sync_start);
 	pthread_mutex_unlock(philo->sync_start);
-	pthread_mutex_lock(philo->write_lock);
-	printf("philo %d start at %zu ms\n", philo->id, get_current_time() - *philo->start_time);
-	pthread_mutex_unlock(philo->write_lock);
 	if (philo->id % 2 == 1)
 	{
 		think(philo);

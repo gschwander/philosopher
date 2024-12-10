@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/06 16:11:53 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:44:22 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	int				*dead;
-	pthread_mutex_t *sync_start;
+	pthread_mutex_t	*sync_start;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*dead_lock;
@@ -53,7 +53,7 @@ typedef struct s_data
 	int				dead_flag;
 	t_param			param;
 	size_t			start_time;
-	pthread_mutex_t sync_start;
+	pthread_mutex_t	sync_start;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			*philo;
@@ -71,28 +71,29 @@ pthread_mutex_t		*init_forks(t_param param);
 int					init_data(t_data *data);
 
 // get_current_time.c
-size_t	get_current_time(void);
-void printf_time_philo(char *str, size_t start_time, size_t nb);
+size_t				get_current_time(void);
+void				printf_time_philo(char *str, size_t start_time, size_t nb);
 
 // routine_philo.c
-void	*routine_philo(void *p);
+void				*routine_philo(void *p);
 
 // check_mutex.c
-int check_dead_flag(t_philo *philo);
-int check_eating_flag(t_philo *philo);
-size_t check_eaten(t_philo *philo);
+int					check_dead_flag(t_philo *philo);
+int					check_eating_flag(t_philo *philo);
+size_t				check_eaten(t_philo *philo);
 
 // monitor.c
-void	*ft_monitor(void *d);
+void				*ft_monitor(void *d);
 
 // ft_usleep.c
-int	ft_usleep(size_t time, t_philo *philo);
-int	tsm(t_philo *philo);
+int					ft_usleep(size_t time, t_philo *philo);
+int					tsm(t_philo *philo);
 
 // eating_utils.c
-void	change_stat_meal(t_philo *philo);
-int taking_first_fork(pthread_mutex_t *ff, t_philo *philo);
-int	taking_fork(pthread_mutex_t *ff, pthread_mutex_t *sf, t_philo *philo);
-void	end_philo(t_philo *philo);
+void				change_stat_meal(t_philo *philo);
+int					taking_first_fork(pthread_mutex_t *ff, t_philo *philo);
+int					taking_fork(pthread_mutex_t *ff, pthread_mutex_t *sf,
+						t_philo *philo);
+void				end_philo(t_philo *philo);
 
 #endif
