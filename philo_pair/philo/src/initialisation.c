@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:07:36 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 15:11:30 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:25:22 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 int	init_data(t_data *data)
 {
 	data->dead_flag = 0;
-	pthread_mutex_init(&data->dead_lock, NULL);
-	pthread_mutex_init(&data->write_lock, NULL);
-	pthread_mutex_init(&data->sync_start, NULL);
+	if (pthread_mutex_init(&data->dead_lock, NULL))
+		return (perror("mutex_init"), 1);
+	if (pthread_mutex_init(&data->write_lock, NULL))
+		return (pthread_mutex_destroy(&data->dead_lock), perror("mutex_init"),
+			1);
+	if (pthread_mutex_init(&data->sync_start, NULL))
+		return (pthread_mutex_destroy(&data->dead_lock),
+			pthread_mutex_destroy(&data->write_lock), perror("mutex_init"), 1);
 	data->philo = malloc(sizeof(t_philo) * data->param.nbr_of_philo);
 	if (!data->philo)
-		return (1);
+		return (destroy_mutex(data), 1);
 	return (0);
 }
 
@@ -32,10 +37,11 @@ pthread_mutex_t	*init_forks(t_param param)
 	i = 0;
 	forks = malloc(sizeof(pthread_mutex_t) * param.nbr_of_philo);
 	if (!forks)
-		return (NULL);
+		return (perror("init_forks"), NULL);
 	while (i < param.nbr_of_philo)
 	{
-		pthread_mutex_init(&forks[i], NULL);
+		if (pthread_mutex_init(&forks[i], NULL))
+			return (destroy_mutex_fork(forks, i), perror("mutex_init"), NULL);
 		i++;
 	}
 	return (forks);
@@ -48,14 +54,16 @@ static void	init_time_philo(t_philo *philo, t_param param)
 	philo->time_to_sleep = param.time_to_sleep;
 }
 
-static void	init_mutex_philo(t_philo *philo, t_data *data)
+static int	init_mutex_philo(t_philo *philo, t_data *data)
 {
 	philo->dead_lock = &data->dead_lock;
 	philo->write_lock = &data->write_lock;
-	pthread_mutex_init(&philo->meal_lock, NULL);
+	if (pthread_mutex_init(&philo->meal_lock, NULL))
+		return (destroy_mutex_philo(data, philo->id), perror("mutex_init"), 1);
 	philo->dead = &data->dead_flag;
 	philo->sync_start = &data->sync_start;
 	philo->start_time = &data->start_time;
+	return (0);
 }
 
 int	init_philo(t_data *data, pthread_mutex_t *forks)
@@ -74,7 +82,8 @@ int	init_philo(t_data *data, pthread_mutex_t *forks)
 			data->philo[i].r_fork = &forks[i + 1];
 		else
 			data->philo[i].r_fork = &forks[0];
-		init_mutex_philo(&data->philo[i], data);
+		if (init_mutex_philo(&data->philo[i], data))
+			return (1);
 		i++;
 	}
 	return (0);

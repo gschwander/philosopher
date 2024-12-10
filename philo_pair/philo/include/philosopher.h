@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 15:44:22 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:20:54 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_data
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
 	t_philo			*philo;
+	pthread_mutex_t	*forks;
 }					t_data;
 
 // philosopher.c
@@ -95,5 +96,12 @@ int					taking_first_fork(pthread_mutex_t *ff, t_philo *philo);
 int					taking_fork(pthread_mutex_t *ff, pthread_mutex_t *sf,
 						t_philo *philo);
 void				end_philo(t_philo *philo);
+
+// clean_data.c
+void				data_clean(t_data *data, pthread_mutex_t *forks);
+void				destroy_mutex(t_data *data);
+void				destroy_mutex_fork(pthread_mutex_t *forks, size_t i);
+void				destroy_mutex_philo(t_data *data, int id);
+void				philo_join(t_data *data, int id);
 
 #endif

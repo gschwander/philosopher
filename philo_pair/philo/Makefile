@@ -9,7 +9,8 @@ SRC		:=	main.c		\
 			ft_usleep.c \
 			routine_philo.c \
 			monitor.c 	\
-			eating_utils.c
+			eating_utils.c	\
+			clean_data.c
 SRC_DIR	:=	src
 BUILD	:=	.build
 SRC 	:=	$(addprefix $(SRC_DIR)/, $(SRC))
