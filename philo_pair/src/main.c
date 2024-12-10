@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:20:34 by gschwand          #+#    #+#             */
-/*   Updated: 2024/11/28 14:12:56 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:44:13 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ static int	check_args(char **argc)
 int	main(int ac, char **av)
 {
 	t_param	param;
+	size_t start1;
 
 	if (ac != 5 && ac != 6)
 		return (perror("Wrong number of arguments"), 2);
 	if (check_args(av))
 		return (1);
+	start1 = get_current_time();
+	usleep(100);
+	printf ("time sleep main %zu\n", get_current_time() - start1);
 	param.nbr_of_philo = ft_atoi(av[1]);
 	param.time_to_die = ft_atoi(av[2]);
 	param.time_to_eat = ft_atoi(av[3]);
