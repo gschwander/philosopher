@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 12:06:27 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:41:21 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_sleep(t_philo *philo)
 
 void	think(t_philo *philo)
 {
+	if (check_dead_flag(philo))
+		return ;
 	pthread_mutex_lock(philo->write_lock);
 	printf("%zu %d is thinking\n", get_current_time() - *philo->start_time,
 		philo->id);
@@ -65,6 +67,9 @@ void	*routine_philo(void *p)
 	philo = (t_philo *)p;
 	pthread_mutex_lock(philo->sync_start);
 	pthread_mutex_unlock(philo->sync_start);
+	pthread_mutex_lock(philo->write_lock);
+	printf("philo %d start at %zu ms\n", philo->id, get_current_time() - *philo->start_time);
+	pthread_mutex_unlock(philo->write_lock);
 	if (philo->id % 2 == 1)
 	{
 		think(philo);
@@ -79,9 +84,7 @@ void	*routine_philo(void *p)
 			return (NULL);
 		think(philo);
 		if (philo->time_to_sleep <= philo->time_to_eat)
-		{
 			ft_usleep(philo->time_to_eat - philo->time_to_sleep + 10, philo);
-		}
 	}
 	return (NULL);
 }

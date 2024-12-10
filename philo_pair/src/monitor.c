@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:18 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:49:32 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:38:55 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_monitor_no_limit_eat(t_data *data)
 
 	while (1)
 	{
+		usleep(100);
 		i = 0;
 		while (i < data->param.nbr_of_philo)
 		{
@@ -69,6 +70,7 @@ void	ft_monitor_limit_eat(t_data *data)
 		i = 0;
 		while (i < data->param.nbr_of_philo)
 		{
+			usleep(100);
 			if (check_eaten(&data->philo[i]) >= data->param.not_p_must_eat)
 			{
 				if (check_nbr_of_meals(data, i))

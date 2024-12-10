@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/06 16:04:31 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:11:59 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,11 @@ static void	start_exec_philo(t_data *data, size_t nbr_of_philo)
 	data->start_time = get_current_time();
 	while (i < nbr_of_philo)
 	{
-		data->philo[i].start_time = &data->start_time;
 		data->philo[i].last_meal = data->start_time;
 		pthread_create(&data->philo[i].thread, NULL, routine_philo,
 			&data->philo[i]);
 		i++;
 	}
-	pthread_mutex_unlock(&data->sync_start);
 }
 
 static void	start_monitor(t_data *data)
@@ -74,6 +72,7 @@ static void	start_monitor(t_data *data)
 	pthread_t	monitor;
 
 	pthread_create(&monitor, NULL, ft_monitor, data);
+	pthread_mutex_unlock(&data->sync_start);
 	pthread_join(monitor, NULL);
 }
 

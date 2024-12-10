@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:07:36 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/02 15:43:51 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:11:30 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	init_mutex_philo(t_philo *philo, t_data *data)
 	pthread_mutex_init(&philo->meal_lock, NULL);
 	philo->dead = &data->dead_flag;
 	philo->sync_start = &data->sync_start;
+	philo->start_time = &data->start_time;
 }
 
 int	init_philo(t_data *data, pthread_mutex_t *forks)
