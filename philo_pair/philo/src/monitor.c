@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:18 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 17:43:02 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:35:48 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 int	exection_death(t_data *data, size_t i)
 {
 	pthread_mutex_lock(data->philo[i].dead_lock);
-	pthread_mutex_lock(&data->write_lock);
-	printf("%zu %d died\n", get_current_time() - data->start_time,
-		data->philo[i].id);
 	data->dead_flag = 1;
 	pthread_mutex_unlock(data->philo[i].dead_lock);
-	pthread_mutex_unlock(&data->write_lock);
+	printf_time_philo_dead("%zu %d died\n", &data->philo[i]);
 	return (1);
 }
 

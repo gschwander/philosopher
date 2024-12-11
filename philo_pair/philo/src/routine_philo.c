@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 17:54:12 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:40:22 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ static void	eating(t_philo *philo)
 int	ft_sleep(t_philo *philo)
 {
 	if (!check_dead_flag(philo))
-	{
-		pthread_mutex_lock(philo->write_lock);
-		printf("%zu %d is sleeping\n", get_current_time() - *philo->start_time,
-			philo->id);
-		pthread_mutex_unlock(philo->write_lock);
-	}
+		printf_time_philo("%zu %d is sleeping\n", philo);
 	if (check_dead_flag(philo))
 		return (1);
 	if (ft_usleep(philo->time_to_sleep, philo))
@@ -52,12 +47,7 @@ int	ft_sleep(t_philo *philo)
 
 void	think(t_philo *philo)
 {
-	if (check_dead_flag(philo))
-		return ;
-	pthread_mutex_lock(philo->write_lock);
-	printf("%zu %d is thinking\n", get_current_time() - *philo->start_time,
-		philo->id);
-	pthread_mutex_unlock(philo->write_lock);
+	printf_time_philo("%zu %d is thinking\n", philo);
 }
 
 void	*routine_philo(void *p)
