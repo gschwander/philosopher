@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:35:22 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 17:53:43 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:35:55 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	start_exec_philo(t_data *data, size_t nbr_of_philo)
 static int	start_monitor(t_data *data)
 {
 	pthread_t	monitor;
-	size_t i;
+	size_t		i;
 
 	i = 0;
 	data->start_time = get_current_time();

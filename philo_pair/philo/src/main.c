@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 14:20:34 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/10 16:05:22 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:34:25 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_args(char **argc)
 		while (argc[i][j])
 		{
 			if (argc[i][j] < '0' || argc[i][j] > '9')
-				return (perror("Arguments must be positive numbers"), 1);
+				return (printf("Arguments must be positive numbers\n"), 1);
 			j++;
 		}
 		i++;
@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 	t_param	param;
 
 	if (ac != 5 && ac != 6)
-		return (printf("Wrong number of arguments"), 0);
+		return (printf("Wrong number of arguments\n"), 0);
 	if (check_args(av))
 		return (1);
 	param.nbr_of_philo = ft_atoi(av[1]);
