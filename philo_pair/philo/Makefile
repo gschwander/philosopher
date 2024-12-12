@@ -41,9 +41,6 @@ clean:
 fclean: clean
 	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && echo "\033[1;31m\tDeleted: $(NAME)\033[0m"; fi
 
-val : all
-	/usr/local/bin/valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./${NAME}
-
 re: fclean all
 
 -include $(DEPS)
