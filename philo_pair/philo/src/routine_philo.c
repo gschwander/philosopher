@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:23:01 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/12 10:25:17 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:02:51 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ static void	eating(t_philo *philo)
 
 int	ft_sleep(t_philo *philo)
 {
-	if (!check_dead_flag(philo))
-		printf_time_philo("%zu %d is sleeping\n", philo);
 	if (check_dead_flag(philo))
 		return (1);
+	printf_time_philo("%zu %d is sleeping\n", philo);
 	if (ft_usleep(philo->time_to_sleep, philo))
 		return (1);
 	return (0);

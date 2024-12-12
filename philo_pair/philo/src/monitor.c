@@ -6,13 +6,13 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 16:28:18 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/11 17:35:48 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:05:27 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	exection_death(t_data *data, size_t i)
+static int	exection_death(t_data *data, size_t i)
 {
 	pthread_mutex_lock(data->philo[i].dead_lock);
 	data->dead_flag = 1;
@@ -21,7 +21,7 @@ int	exection_death(t_data *data, size_t i)
 	return (1);
 }
 
-void	ft_monitor_no_limit_eat(t_data *data)
+static void	ft_monitor_no_limit_eat(t_data *data)
 {
 	size_t	i;
 
@@ -41,7 +41,7 @@ void	ft_monitor_no_limit_eat(t_data *data)
 	}
 }
 
-int	check_nbr_of_meals(t_data *data, size_t j)
+static int	check_nbr_of_meals(t_data *data, size_t j)
 {
 	size_t	i;
 
@@ -58,7 +58,7 @@ int	check_nbr_of_meals(t_data *data, size_t j)
 	return (1);
 }
 
-void	ft_monitor_limit_eat(t_data *data)
+static void	ft_monitor_limit_eat(t_data *data)
 {
 	size_t	i;
 

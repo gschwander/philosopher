@@ -6,7 +6,7 @@
 /*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:45:17 by gschwand          #+#    #+#             */
-/*   Updated: 2024/12/11 17:36:56 by gschwand         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:58:39 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int					init_data(t_data *data);
 // get_current_time.c
 size_t				get_current_time(void);
 void				printf_time_philo(char *str, t_philo *philo);
-void	printf_time_philo_dead(char *str, t_philo *philo);
+void				printf_time_philo_dead(char *str, t_philo *philo);
 
 // routine_philo.c
 void				*routine_philo(void *p);
